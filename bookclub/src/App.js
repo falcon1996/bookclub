@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MyComp from './My.js'
-
+import MyComp from './My.js';
+import AllComp from './All.js';
 
 class App extends Component {
     
@@ -35,11 +35,12 @@ class App extends Component {
         return (
             <div className="App">
                 <MyComp newbook={this.state.newbook}
-                addedbook={this.state.addedbook}
                 inputNewBook={this.inputNewBook}
                 addNewBook={this.addNewBook}
                 alldisplay={this.alldisplay}
                 />
+                
+                <AllComp addedbook={this.state.addedbook} />
             </div>
         );
     }
