@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import {
+  Route,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
+
 import MyComp from './My.js';
 import AllComp from './All.js';
 
@@ -33,15 +39,29 @@ class App extends Component {
     
     render() {
         return (
-            <div className="App">
-                <MyComp newbook={this.state.newbook}
-                inputNewBook={this.inputNewBook}
-                addNewBook={this.addNewBook}
-                alldisplay={this.alldisplay}
-                />
+            <HashRouter>
+                <div className="App">
                 
-                <AllComp addedbook={this.state.addedbook} />
-            </div>
+                    <ul className="header">
+                        <li><NavLink to="/my">My</NavLink></li>
+                        <li><NavLink to="/all">All</NavLink></li>
+                    </ul>
+                
+                    <div className="content">
+                        <Route 
+                            path="/my" 
+                            render={(props) => <MyComp {...props} newbook={this.state.newbook} inputNewBook={this.inputNewBook} addNewBook={this.addNewBook} alldisplay={this.alldisplay} />}
+                        />
+                        
+                         <Route 
+                            path="/all" 
+                            render={(props) => <AllComp {...props} addedbook={this.state.addedbook}  />}
+                        />    
+                    
+                    </div>
+                    
+                </div>
+            </HashRouter>
         );
     }
 }

@@ -10,27 +10,9 @@ class AllComp extends Component{
         }
     }
 
-    /*
+    
     componentDidMount(){
     
-        fetch('/myapi',{
-            method: 'POST',
-            body: JSON.stringify({
-                myquery: this.props.addedbook
-            }),
-            headers: {"Content-Type": "application/json"}
-        })
-            .then( (response) => {return response.json(); })
-            .then( (data) => {
-            	console.log(data)
-            })
-    }
-    
-    
-    */
-    
-    seeAll = () => {
-        
         fetch('/myapi',{
             method: 'POST',
             body: JSON.stringify({
@@ -45,14 +27,14 @@ class AllComp extends Component{
             	    link:data.insert[0].thumbnail
             	})
             })
-        
     }
+    
     
     render(){
         
         return(
             <div>
-                <button onClick={this.seeAll}>View added Books</button>
+                
                 <h1>{this.props.addedbook}</h1>
                 <a href='#'> 
                     <img src={this.state.link} alt="Book!"  /> 
