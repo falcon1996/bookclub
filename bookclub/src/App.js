@@ -15,7 +15,8 @@ class App extends Component {
         
         this.state={
             newbook:'',
-            addedbook:''
+            addedbook:'',
+            allbooks:[]
         }
     }
     
@@ -28,7 +29,8 @@ class App extends Component {
     addNewBook = (event) => {
         event.preventDefault()
         this.setState({
-            addedbook: this.state.newbook
+            addedbook: this.state.newbook,
+            allbooks:this.state.allbooks.concat(this.state.newbook)
         });
     }
     
@@ -55,7 +57,7 @@ class App extends Component {
                         
                          <Route 
                             path="/all" 
-                            render={(props) => <AllComp {...props} addedbook={this.state.addedbook}  />}
+                            render={(props) => <AllComp {...props} addedbook={this.state.addedbook} allbooks={this.state.allbooks}  />}
                         />    
                     
                     </div>
