@@ -8,6 +8,9 @@ import {
 import MyComp from './My.js';
 import AllComp from './All.js';
 
+import Login from './Login.js';
+import Signup from './Signup.js';
+
 class App extends Component {
     
     constructor(props){
@@ -30,12 +33,28 @@ class App extends Component {
         event.preventDefault()
         this.setState({
             addedbook: this.state.newbook,
-            allbooks:this.state.allbooks.concat(this.state.newbook)
+            //allbooks:this.state.allbooks.concat([this.state.newbook])
         });
     }
     
     alldisplay = (event) => {
-        console.log('allBooks');
+        console.log(this.state.newbook);
+        
+        fetch('/addnew',{
+                method: 'POST',
+                body: JSON.stringify({
+                    newbook: this.state.newbook
+                }),
+                headers: {"Content-Type": "application/json"}
+            })
+                .then( (response) => {return response.json(); })
+                .then( (data) => {
+                	console.log(data.insert)
+                	this.setState({
+                	    allbooks:this.state.allbooks.concat(data.insert)
+                	})
+                })
+        
     }
     
     
@@ -47,6 +66,9 @@ class App extends Component {
                     <ul className="header">
                         <li><NavLink to="/my">My</NavLink></li>
                         <li><NavLink to="/all">All</NavLink></li>
+                        
+                        <li><NavLink to="/login">Login</NavLink></li>
+                        <li><NavLink to="/signup">Signup</NavLink></li>
                     </ul>
                 
                     <div className="content">
@@ -59,6 +81,9 @@ class App extends Component {
                             path="/all" 
                             render={(props) => <AllComp {...props} addedbook={this.state.addedbook} allbooks={this.state.allbooks}  />}
                         />    
+                        
+                        <Route path="/login" component={Login}/>
+                        <Route path="/signup" component={Signup}/>
                     
                     </div>
                     

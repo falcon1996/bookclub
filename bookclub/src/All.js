@@ -39,16 +39,16 @@ class AllComp extends Component{
         
         const items = this.state.mylinks.map( (item,i) => {
             return(
-                    <li key={i}> <img src={item} alt="Book!"  /> 
-            		        <br /><br />
+                    <li key={i}> 
+                        <img src={item} alt="Book!"  /> <button className="btn btn-primary">Request</button>
+                        <br/><br/>
                     </li>
                 );  
         })
         
         return(
-            <div>
-                <h3>New:</h3>
-                <h3>{this.props.addedbook}</h3>
+            <div id="centered" >
+                 <h4>Just Added: {this.props.addedbook}</h4>
                 {items}
             </div>
         );

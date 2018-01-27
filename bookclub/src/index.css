@@ -1,10 +1,10 @@
 body {
-  background-color: #FFCC00;
+  background-color: #ffffff;
   padding: 20px;
   margin: 0;
 }
 h1, h2, p, ul, li {
-  font-family: sans-serif;
+  font-family: Tahoma;
 }
 ul.header li {
   display: inline;
@@ -12,7 +12,7 @@ ul.header li {
   margin: 0;
 }
 ul.header {
-  background-color: #111;
+  background-color: #ff4dff;
   padding: 0;
 }
 ul.header li a {
@@ -23,7 +23,7 @@ ul.header li a {
   display: inline-block;
 }
 .content {
-  background-color: #FFF;
+  background-color: #b3b5b8;
   padding: 20px;
 }
 .content h2 {
@@ -35,4 +35,9 @@ ul.header li a {
 }
 .active {
   background-color: #0099FF;
+}
+#centered {
+    position: relative;
+    top:30%;
+    left: 25%;
 }
