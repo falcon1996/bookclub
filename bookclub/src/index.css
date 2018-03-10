@@ -18,6 +18,7 @@ ul.header {
 ul.header li a {
   color: #FFF;
   font-weight: bold;
+  font-style: italic;
   text-decoration: none;
   padding: 20px;
   display: inline-block;

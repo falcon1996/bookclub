@@ -7,6 +7,7 @@ var User = new Schema({
 	
 	email : String,
 	password: String,
+	mybooks: Array
 	
 });
 

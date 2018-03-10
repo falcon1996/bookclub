@@ -92,6 +92,12 @@ app.post('/addnew', function(req,res){
 })
 
 
+app.post('/signup',function(req,res){
+    console.log(req);
+    res.json({a:'b'});
+})
+
+
 http.createServer(app).listen(8081, function(){
     console.log("Example of app listning on port 8081");
 });
