@@ -93,7 +93,7 @@ app.post('/addnew', function(req,res){
 
 
 app.post('/signup',function(req,res){
-    console.log(req);
+    console.log(req.body);
     res.json({a:'b'});
 })
 

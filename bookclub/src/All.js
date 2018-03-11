@@ -41,7 +41,7 @@ class AllComp extends Component{
             return(
                     <li key={i}> 
                         <img src={item} alt="Book!"  /> <button className="btn btn-primary">Request</button>
-                        <br/><br/>
+                        <hr />
                     </li>
                 );  
         })
