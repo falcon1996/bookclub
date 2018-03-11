@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 var book = require('./books.js');
+var user = require('./users.js');
 
 app.post('/myapi', function(req, res) {    
     //res.json({insert: "success"});
@@ -94,7 +95,18 @@ app.post('/addnew', function(req,res){
 
 app.post('/signup',function(req,res){
     console.log(req.body);
-    res.json({a:'b'});
+    //console.log(typeof(req.body.password));
+    
+    user.findOne({email:req.body.user},function(err,doc){
+        if(doc){
+            res.json({mystatus:'User already exists!'});
+         }
+         else if(!doc){
+             user.create({ email:req.body.user, password:req.body.password, mybooks:[] });
+             res.json({mystatus: 'User Created!'});
+         }
+    })
+    
 })
 
 

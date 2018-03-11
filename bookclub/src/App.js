@@ -17,6 +17,7 @@ class App extends Component {
         super(props);
         
         this.state={
+            loginEmail: '',  //New variable
             newbook:'',
             addedbook:'',
             allbooks:[]
@@ -82,7 +83,11 @@ class App extends Component {
                             render={(props) => <AllComp {...props} addedbook={this.state.addedbook} allbooks={this.state.allbooks}  />}
                         />    
                         
-                        <Route path="/login" component={Login}/>
+                        <Route 
+                            path="/login"
+                            render={(props) => <Login {...props} email={this.state.loginEmail}  />}
+                        />    
+                        
                         <Route path="/signup" component={Signup}/>
                     
                     </div>

@@ -5,31 +5,11 @@ import 'react-notifications/lib/notifications.css';
 
 class Signup extends Component{
     
-    createNotification = (type) => {
-    return () => {
-      switch (type) {
-        case 'info':
-          NotificationManager.info('Info message');
-          break;
-        case 'success':
-          NotificationManager.success('Success message', 'Title here');
-          break;
-        case 'warning':
-          NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-          break;
-        case 'error':
-          NotificationManager.error('Error message', 'Click me!', 5000, () => {
-            alert('callback');
-          });
-          break;
-      }
-    };
-  };
-    
     constructor(props) {
         super(props);
         
         this.state={
+            signupInfo:'',
             email:'',
             password:''
         }
@@ -40,14 +20,12 @@ class Signup extends Component{
     createNotification = (type) => {
         return () => {
             switch (type) {
+                case 'info':
+                      NotificationManager.info(this.state.signupInfo);
+                      break;
                 case 'success':
                       NotificationManager.success('Success!', 'Signed In');
                       break;
-                case 'error':
-                      NotificationManager.error('Error message', 'Click me!', 5000, () => {
-                        alert('callback');
-                  });
-                  break;
             }
         };
     };
@@ -65,8 +43,11 @@ class Signup extends Component{
             .then((response) => {return response.json()})
             .then((data) =>{
                 console.log(data);
+                this.setState({
+                    signupInfo: data.mystatus
+                })
             })
-            .then(this.createNotification('success'))
+            .then(this.createNotification('info'))
     }
     
     handlePasswordChange = (event) => {
