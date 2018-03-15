@@ -46,6 +46,9 @@ class Login extends Component{
             .then((response) => {return response.json()})
             .then((data) => {
                 console.log(data);
+                if(data.mystatus === 'Exists'){
+                    window.loginText=this.state.email;
+                }
                 this.setState({
                     loginInfo: data.mystatus    
                 });

@@ -46,6 +46,7 @@ class Signup extends Component{
                 this.setState({
                     signupInfo: data.mystatus
                 });
+                //console.log(window.loginText);
             })
             .then(this.createNotification('info'));
     }

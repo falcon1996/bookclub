@@ -17,11 +17,17 @@ class App extends Component {
         super(props);
         
         this.state={
-            loginEmail: '',  //New variable
             newbook:'',
             addedbook:'',
-            allbooks:[]
-        }
+            allbooks:[],
+            mybooks:[]
+        };
+    }
+    
+    setLogin = (event) => {
+        this.setState({
+            loginEmail: event.target.value
+        });
     }
     
     inputNewBook = (event) => {
@@ -31,7 +37,7 @@ class App extends Component {
     }
     
     addNewBook = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         this.setState({
             addedbook: this.state.newbook,
             //allbooks:this.state.allbooks.concat([this.state.newbook])
@@ -44,18 +50,19 @@ class App extends Component {
         fetch('/addnew',{
                 method: 'POST',
                 body: JSON.stringify({
+                    user: window.loginText,
                     newbook: this.state.newbook
                 }),
                 headers: {"Content-Type": "application/json"}
             })
                 .then( (response) => {return response.json(); })
                 .then( (data) => {
-                	console.log(data.insert)
+                	console.log(data);
                 	this.setState({
-                	    allbooks:this.state.allbooks.concat(data.insert)
-                	})
-                })
-        
+                	    allbooks:this.state.allbooks.concat(data.insert),
+                	    mybooks: this.state.mybooks.concat(data.myinsert)
+                	});
+                });
     }
     
     
@@ -83,10 +90,7 @@ class App extends Component {
                             render={(props) => <AllComp {...props} addedbook={this.state.addedbook} allbooks={this.state.allbooks}  />}
                         />    
                         
-                        <Route 
-                            path="/login"
-                            render={(props) => <Login {...props} email={this.state.loginEmail}  />}
-                        />    
+                        <Route path="/login" component={Login}/>    
                         
                         <Route path="/signup" component={Signup}/>
                     
