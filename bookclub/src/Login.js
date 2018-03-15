@@ -1,14 +1,36 @@
 import React, {Component} from 'react';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class Login extends Component{
     
     constructor(props){
         super(props);
         this.state = {
+            loginInfo:'',
             email:'',
             password:''
         };
     }
+    
+    createNotification = (type) => {
+        return () => {
+            switch (type) {
+                case 'info':
+                    if(this.state.loginInfo === 'Exists'){
+                        NotificationManager.info('Logged In!');
+                    }
+                    else{
+                        NotificationManager.info('Wrong Password or Email!');
+                    }
+                    break;
+                        
+                case 'success':
+                    NotificationManager.success('Success!', 'Signed In');
+                    break;
+            }
+        };
+    };
     
     submitHandler = (event) => {
         event.preventDefault();
@@ -24,7 +46,11 @@ class Login extends Component{
             .then((response) => {return response.json()})
             .then((data) => {
                 console.log(data);
+                this.setState({
+                    loginInfo: data.mystatus    
+                });
             })
+            .then(this.createNotification('info'));
     }
     
     
@@ -48,6 +74,7 @@ class Login extends Component{
                     <input className="form-control" type="password" placeholder="Password" onChange={this.passwordSubmit} value={this.state.password} required/>
                     <button className="btn btn-primary">Submit</button>
                 </form>
+                <NotificationContainer/>
             </div>
         );
     }

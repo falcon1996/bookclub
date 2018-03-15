@@ -111,7 +111,14 @@ app.post('/signup',function(req,res){
 
 app.post('/login',function(req,res){
     console.log(req.body);
-    res.json({status: 'working!'});
+    user.findOne({$and:[{email:req.body.email}, {password:req.body.password}]},function(err,doc){
+        if(doc){
+            res.json({mystatus:'Exists'});
+         }
+         else if(!doc){
+             res.json({mystatus: 'Does not exist!'});
+         }
+    });
 });
 
 

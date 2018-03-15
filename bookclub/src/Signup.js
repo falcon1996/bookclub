@@ -21,11 +21,11 @@ class Signup extends Component{
         return () => {
             switch (type) {
                 case 'info':
-                      NotificationManager.info(this.state.signupInfo);
-                      break;
+                    NotificationManager.info(this.state.signupInfo);
+                    break;
                 case 'success':
-                      NotificationManager.success('Success!', 'Signed In');
-                      break;
+                    NotificationManager.success('Success!', 'Signed In');
+                    break;
             }
         };
     };
