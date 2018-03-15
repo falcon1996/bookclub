@@ -12,7 +12,7 @@ class Signup extends Component{
             signupInfo:'',
             email:'',
             password:''
-        }
+        };
         
         this.handleSubmit = this.handleSubmit.bind(this);
      }
@@ -45,33 +45,33 @@ class Signup extends Component{
                 console.log(data);
                 this.setState({
                     signupInfo: data.mystatus
-                })
+                });
             })
-            .then(this.createNotification('info'))
+            .then(this.createNotification('info'));
     }
     
     handlePasswordChange = (event) => {
         this.setState({
             password:event.target.value
-        })
+        });
     }
     handleEmailChange = (event) => {
         this.setState({
             email:event.target.value
-        })
+        });
     }
     
     render(){
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input className="form-control" type="text" placeholder="email" onChange={this.handleEmailChange} value={this.state.email}  />
-                    <input className="form-control" type="password" placeholder="Password" onChange={this.handlePasswordChange} value={this.state.password} />
+                    <input className="form-control" type="text" placeholder="email" onChange={this.handleEmailChange} value={this.state.email}  required/>
+                    <input className="form-control" type="password" placeholder="Password" onChange={this.handlePasswordChange} value={this.state.password} required/>
                     <button className="btn btn-primary">Submit</button>
                 </form>
                 <NotificationContainer/>
             </div>
-        )
+        );
     }
 }
 

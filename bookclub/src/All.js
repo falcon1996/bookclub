@@ -8,12 +8,12 @@ class AllComp extends Component{
         this.state={
             link:'',
             mylinks:[]
-        }
+        };
     }
 
     
     componentDidMount(){
-        var i = this.props.allbooks.length
+        var i = this.props.allbooks.length;
         for(var j=0; j<i; j++){
         
             fetch('/myapi',{
@@ -25,12 +25,12 @@ class AllComp extends Component{
             })
                 .then( (response) => {return response.json(); })
                 .then( (data) => {
-                	console.log(data.insert[0].thumbnail)
+                	console.log(data.insert[0].thumbnail);
                 	this.setState({
                 	    link:data.insert[0].thumbnail,
                 	    mylinks: this.state.mylinks.concat([data.insert[0].thumbnail])
-                	})
-                })
+                	});
+                });
         }
     }
     
@@ -44,7 +44,7 @@ class AllComp extends Component{
                         <hr />
                     </li>
                 );  
-        })
+        });
         
         return(
             <div id="centered" >

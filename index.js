@@ -51,7 +51,7 @@ app.post('/addnew', function(req,res){
                 if(doc){
                     console.log(doc);
                     book.findOne({type:'all'},function(err,doc){
-                        console.log(doc.allbooks)
+                        console.log(doc.allbooks);
                         res.json({insert: doc.allbooks});
                     });
                 }
@@ -61,7 +61,7 @@ app.post('/addnew', function(req,res){
                 else if(err){
                     console.log(err);
                 }
-            })
+            });
             
         }
         
@@ -80,7 +80,7 @@ app.post('/addnew', function(req,res){
                     console.log(err);
                 }
                 
-            })
+            });
             
         }
         
@@ -88,9 +88,9 @@ app.post('/addnew', function(req,res){
             console.log(err);
         }
         
-    })
+    });
     
-})
+});
 
 
 app.post('/signup',function(req,res){
@@ -105,9 +105,14 @@ app.post('/signup',function(req,res){
              user.create({ email:req.body.user, password:req.body.password, mybooks:[] });
              res.json({mystatus: 'User Created!'});
          }
-    })
+    });
     
-})
+});
+
+app.post('/login',function(req,res){
+    console.log(req.body);
+    res.json({status: 'working!'});
+});
 
 
 http.createServer(app).listen(8081, function(){
