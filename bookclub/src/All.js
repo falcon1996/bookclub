@@ -14,12 +14,15 @@ class AllComp extends Component{
     
     componentDidMount(){
         var i = this.props.allbooks.length;
-        for(var j=0; j<i; j++){
-        
+        for(let j=0; j<i; j++){
+            
+            //var owner = this.props.allbooks[j]["email"];
+            
+            
             fetch('/myapi',{
                 method: 'POST',
                 body: JSON.stringify({
-                    myquery: this.props.allbooks[j]
+                    myquery: this.props.allbooks[j]["book"]
                 }),
                 headers: {"Content-Type": "application/json"}
             })
@@ -28,10 +31,33 @@ class AllComp extends Component{
                 	console.log(data.insert[0].thumbnail);
                 	this.setState({
                 	    link:data.insert[0].thumbnail,
-                	    mylinks: this.state.mylinks.concat([data.insert[0].thumbnail])
+                	    mylinks: this.state.mylinks.concat([{link:data.insert[0].thumbnail, owner: this.props.allbooks[j]["email"]}])
                 	});
                 });
         }
+    }
+    
+    deleteAll = () => {
+        fetch('/deleteall')
+                .then( (response) => {return response.json(); })
+                .then( (data) => {
+                    console.log(data);
+                })
+    }
+    
+    contactOwner = (owner) => {
+        fetch('/contact',{
+                method: 'POST',
+                body: JSON.stringify({
+                    myself: window.loginText,
+                    bookowner: owner
+                }),
+                headers: {"Content-Type": "application/json"}
+            })
+                .then( (response) => {return response.json(); })
+                .then( (data) => {
+                	console.log(data);
+                });
     }
     
     
@@ -40,7 +66,7 @@ class AllComp extends Component{
         const items = this.state.mylinks.map( (item,i) => {
             return(
                     <li key={i}> 
-                        <img src={item} alt="Book!"  /> <button className="btn btn-primary">Request</button>
+                        <img src={item['link']} alt="Book!"  /> <button className="btn btn-primary" onClick={() => this.contactOwner(item['owner'])}>Request</button>
                         <hr />
                     </li>
                 );  
@@ -48,6 +74,7 @@ class AllComp extends Component{
         
         return(
             <div id="centered" >
+                <button className="btn btn-primary" onClick={this.deleteAll}>Delete All</button>
                  <h4>Just Added: {this.props.addedbook}</h4>
                 {items}
             </div>

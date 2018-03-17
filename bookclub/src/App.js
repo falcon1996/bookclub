@@ -45,6 +45,10 @@ class App extends Component {
     }
     
     alldisplay = (event) => {
+        this.setState({
+            allbooks:[],
+            mybooks: []
+        });
         console.log(this.state.newbook);
         
         fetch('/addnew',{
