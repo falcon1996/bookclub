@@ -11,6 +11,7 @@ var books = require('google-books-search');
 
 var app = express();
 require('dotenv').load();
+const sendEmail = require('send-email')
 
 mongoose.connect(process.env.MONGO_URI);
 mongoose.Promise = global.Promise;
@@ -162,6 +163,20 @@ app.post('/login',function(req,res){
 
 app.post('/contact',function(req,res){
     console.log(req.body);
+    
+    let payload = {
+        "to": req.body.bookowner,
+        "subject": "sending emails using send-email",
+        "text": "Wanna trade?", 
+        "html": "hello <b>world</b>!",
+        "from": req.body.myself
+    }
+    sendEmail(payload)
+        .then((res) => {
+            console.log(res);
+        })
+    
+    
     res.json({owner:req.body.bookowner, myself:req.body.myself});
 });
 

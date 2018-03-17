@@ -16,9 +16,6 @@ class AllComp extends Component{
         var i = this.props.allbooks.length;
         for(let j=0; j<i; j++){
             
-            //var owner = this.props.allbooks[j]["email"];
-            
-            
             fetch('/myapi',{
                 method: 'POST',
                 body: JSON.stringify({
