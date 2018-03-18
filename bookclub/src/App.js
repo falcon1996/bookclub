@@ -86,7 +86,7 @@ class App extends Component {
                     <div className="content">
                         <Route 
                             path="/my" 
-                            render={(props) => <MyComp {...props} newbook={this.state.newbook} inputNewBook={this.inputNewBook} addNewBook={this.addNewBook} alldisplay={this.alldisplay} />}
+                            render={(props) => <MyComp {...props} newbook={this.state.newbook} inputNewBook={this.inputNewBook} addNewBook={this.addNewBook} alldisplay={this.alldisplay} mybooks={this.state.mybooks} />}
                         />
                         
                          <Route 

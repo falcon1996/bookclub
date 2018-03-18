@@ -8,10 +8,11 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var books = require('google-books-search');
+const nodemailer = require('nodemailer');
+const xoauth2 = require('xoauth2');
 
 var app = express();
 require('dotenv').load();
-const sendEmail = require('send-email')
 
 mongoose.connect(process.env.MONGO_URI);
 mongoose.Promise = global.Promise;
@@ -164,17 +165,32 @@ app.post('/login',function(req,res){
 app.post('/contact',function(req,res){
     console.log(req.body);
     
-    let payload = {
-        "to": req.body.bookowner,
-        "subject": "sending emails using send-email",
-        "text": "Wanna trade?", 
-        "html": "hello <b>world</b>!",
-        "from": req.body.myself
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            type: 'OAuth2',
+            user: '',
+            clientId: '',
+            clientSecret: '',
+            refreshToken: ''
+            
+        }
+    })
+
+    var mailOptions = {
+        from: 'Dhruv <>',
+        to: req.body.bookowner,
+        subject: 'Book Trade Request',
+        text: 'Hello! '+ req.body.bookowner + ' , ' + req.body.myself + ' is interested in one of your books, Wanna trade?'
     }
-    sendEmail(payload)
-        .then((res) => {
-            console.log(res);
-        })
+    
+    transporter.sendMail(mailOptions, function (err, res) {
+        if(err){
+            console.log(err);
+        } else {
+            console.log('Email Sent');
+        }
+    })
     
     
     res.json({owner:req.body.bookowner, myself:req.body.myself});
